@@ -19,6 +19,7 @@ const Login = () => {
 
     const submitHandler = async () => {
         setLoading(true);
+        
         if (!email || !password) {
             toast({
                 title: "Please fill all the fields",
@@ -27,6 +28,7 @@ const Login = () => {
                 isClosable: true,
                 position: 'top-right',
             });
+
             setLoading(false);
             return;
         }
@@ -51,8 +53,11 @@ const Login = () => {
                 isClosable: true,
                 position: "bottom",
             });
+
             localStorage.setItem("userInfo", JSON.stringify(data));
+
             setLoading(false);
+
             history.push("/chats");
         } catch (error) {
             toast({
@@ -63,6 +68,7 @@ const Login = () => {
                 isClosable: true,
                 position: "bottom",
             });
+
             setLoading(false);
         }
     };
