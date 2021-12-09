@@ -29,12 +29,15 @@ import NotificationBadge, { Effect } from 'react-notification-badge';
 import LoadingSkeleton from 'components/shared/LoadSkeleton';
 import ListUser from 'components/shared/ListUser';
 import { getSender } from 'utils';
+import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ history }) => {
+const Sidebar = () => {
     const [search, setSearch] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
+
+    const navigate = useNavigate();
 
     const {
         setSelectedChat,
@@ -50,7 +53,7 @@ const Sidebar = ({ history }) => {
 
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");
-        history.push('/');
+        navigate('/');
     };
 
     const handleSearch = async () => {

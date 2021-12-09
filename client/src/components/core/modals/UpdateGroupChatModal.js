@@ -4,7 +4,8 @@ import { useDisclosure } from '@chakra-ui/hooks';
 import { useToast } from '@chakra-ui/toast';
 import { Button, IconButton } from '@chakra-ui/button';
 import { SpinnerIcon, ViewIcon } from '@chakra-ui/icons';
-import { 
+import {
+    Modal,
     ModalBody, 
     ModalCloseButton, 
     ModalContent, 

@@ -5,8 +5,9 @@ import { VStack } from '@chakra-ui/layout';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
+import { useNavigate } from 'react-router-dom';
 
-const Signup = ({ history }) => {
+const Signup = () => {
     const [show, setShow] = useState(false);
     const [name, setName] = useState();
     const [email, setEmail] = useState();
@@ -16,6 +17,8 @@ const Signup = ({ history }) => {
     const [loading, setLoading] = useState(false);
 
     const handleShow = () => setShow(!show);
+
+    const navigate = useNavigate();
 
     const submitHandler = async () => {
         setLoading(true);
@@ -33,7 +36,7 @@ const Signup = ({ history }) => {
             return;
         }
 
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             toast({
                 title: "Passwords Do Not Match",
                 status: "warning",
@@ -70,7 +73,7 @@ const Signup = ({ history }) => {
 
             setLoading(false);
 
-            history.push("/chats");
+            navigate("/chats");
         } catch (error) {
             toast({
                 title: "Error Occurred!",
