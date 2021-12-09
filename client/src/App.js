@@ -1,13 +1,15 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import AuthScreen from 'screens/AuthScreen';
 import ChatScreen from 'screens/ChatScreen';
 
 function App() {
   return (
     <div className="App">
-      <Route path="/" component={AuthScreen} exact />
-      <Route path="/chats" component={ChatScreen} />
+      <Routes>
+        <Route path="/" component={AuthScreen} />
+        <Route path="/chats" component={ChatScreen} />
+      </Routes>
     </div>
   );
 }

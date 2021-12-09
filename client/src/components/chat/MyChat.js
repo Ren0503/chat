@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { ChatState } from 'context/ChatProvider';
 import { Box, Stack, Text } from '@chakra-ui/layout';
@@ -6,6 +7,7 @@ import { GroupChatModal } from 'components/core/modals';
 import { Button } from '@chakra-ui/button';
 import { AddIcon } from '@chakra-ui/icons';
 import LoadingSkeleton from 'components/shared/LoadSkeleton';
+import { getSender } from 'utils';
 
 const MyChat = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();

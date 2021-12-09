@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { useToast } from '@chakra-ui/toast';
 import { 
@@ -16,6 +17,7 @@ import { Box } from '@chakra-ui/layout';
 import ListUser from 'components/shared/ListUser';
 import { Button } from '@chakra-ui/button';
 import BadgeUser from 'components/shared/BadgeUser';
+import { ChatState } from 'context/ChatProvider';
 
 const GroupChatModal = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,6 +27,8 @@ const GroupChatModal = ({ children }) => {
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
     const toast = useToast();
+
+    const { user, chats, setChats } = ChatState();
 
     const handleAdd = (userToAdd) => {
         if (selectedUsers.includes(userToAdd)) {
@@ -175,7 +179,7 @@ const GroupChatModal = ({ children }) => {
                                     <ListUser
                                         key={user._id}
                                         user={user}
-                                        handleFunction={() => handleGroup(user)}
+                                        handleFunction={() => handleAdd(user)}
                                     />
                                 ))
                         )}

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useDisclosure } from '@chakra-ui/hooks';
 import { Button } from '@chakra-ui/button';
-import { BellIcon } from '@chakra-ui/icons';
+import { BellIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Box, Text } from '@chakra-ui/layout';
 import { ChatState } from 'context/ChatProvider';
 import { useToast } from '@chakra-ui/toast';
-import { useHistory } from 'react-router-dom';
 import { Tooltip } from '@chakra-ui/tooltip';
 import { 
     Menu, 
@@ -25,11 +25,12 @@ import {
 } from '@chakra-ui/modal';
 import { Input } from '@chakra-ui/input';
 import { Spinner } from '@chakra-ui/spinner';
-import NotificationBadge from 'react-notification-badge';
+import NotificationBadge, { Effect } from 'react-notification-badge';
 import LoadingSkeleton from 'components/shared/LoadSkeleton';
 import ListUser from 'components/shared/ListUser';
+import { getSender } from 'utils';
 
-const Sidebar = () => {
+const Sidebar = ({ history }) => {
     const [search, setSearch] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -44,10 +45,8 @@ const Sidebar = () => {
         setChats,
     } = ChatState();
 
-
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const history = useHistory();
 
     const logoutHandler = () => {
         localStorage.removeItem("userInfo");

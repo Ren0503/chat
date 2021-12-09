@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import { toast } from '@chakra-ui/toast';
 import { VStack } from '@chakra-ui/layout';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
 
-const Signup = () => {
+const Signup = ({ history }) => {
     const [show, setShow] = useState(false);
     const [name, setName] = useState();
     const [email, setEmail] = useState();
@@ -15,8 +14,6 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState();
     const [avatar, setAvatar] = useState();
     const [loading, setLoading] = useState(false);
-
-    const history = useHistory();
 
     const handleShow = () => setShow(!show);
 
@@ -89,7 +86,7 @@ const Signup = () => {
     }
 
 
-    const uploadImage = (pics) => {
+    const uploadImage = async (pics) => {
         setLoading(true);
 
         if (pics === undefined) {
@@ -107,7 +104,7 @@ const Signup = () => {
         if (pics.type === "image/jpeg" || pics.type === "image/png") {
             const formData = new FormData();
             formData.append("file", pics);
-            formData.append("upload_preset", "blog_post");
+            formData.append("upload_preset", "chat_app");
             formData.append("cloud_name", "dsvc4kfvh");
 
             try {
@@ -134,6 +131,7 @@ const Signup = () => {
             return;
         }
     }
+
     return (
         <VStack spacing="5px">
             <FormControl id="first-name" isRequired>

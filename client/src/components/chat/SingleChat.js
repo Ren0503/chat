@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { io } from 'socket.io-client';
 import { Box, Text } from '@chakra-ui/layout';
@@ -14,7 +15,7 @@ import Scrollable from './Scrollable';
 
 let socket, selectedChatCompare;
 
-const SingleChat = () => {
+const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState('');

@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import { toast } from '@chakra-ui/toast';
 import { VStack } from '@chakra-ui/layout';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
 
-const Login = () => {
+const Login = ({ history }) => {
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [loading, setLoading] = useState(false);
-
-    const history = useHistory();
 
     const handleShow = () => setShow(!show);
 
