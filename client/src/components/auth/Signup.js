@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { toast } from '@chakra-ui/toast';
 import { VStack } from '@chakra-ui/layout';
 import { FormControl, FormLabel } from '@chakra-ui/form-control';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '@chakra-ui/react';
 
 const Signup = () => {
     const [show, setShow] = useState(false);
@@ -18,6 +18,7 @@ const Signup = () => {
 
     const handleShow = () => setShow(!show);
 
+    const toast = useToast();
     const navigate = useNavigate();
 
     const submitHandler = async () => {
@@ -77,7 +78,6 @@ const Signup = () => {
         } catch (error) {
             toast({
                 title: "Error Occurred!",
-                description: error.response.data.message,
                 status: 'error',
                 duration: 5000,
                 isClosable: true,

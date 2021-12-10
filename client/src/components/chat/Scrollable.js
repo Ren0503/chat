@@ -27,7 +27,7 @@ const Scrollable = ({ messages }) => {
                                         size="sm"
                                         cursor="pointer"
                                         name={m.sender.name}
-                                        src={m.sender.pic}
+                                        src={m.sender.avatar}
                                     />
                                 </Tooltip>
                             )}
