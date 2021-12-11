@@ -1,11 +1,16 @@
 import asyncHandler from 'express-async-handler';
 import Message from '../models/messageModel';
+import Chat from '../models/chatModel';
 
 const getMessages = asyncHandler(async (req, res) => {
     try {
         const messages = await Message.find({ chat: req.params.chatId })
             .populate('sender', 'name avatar email')
-            .populate('chat');
+            .populate({
+                path: 'chat',
+                populate: { path: 'users', select: 'avatar name email' }
+            })
+
         res.json(messages);
     } catch (error) {
         res.status(400);
@@ -21,24 +26,25 @@ const sendMessage = asyncHandler(async (req, res) => {
         return res.sendStatus(400);
     }
 
-    var newMessage = {
+    const newMessage = {
         sender: req.user._id,
         content: content,
         chat: chatId,
     };
 
     try {
-        const message = await Message.create(newMessage);
-        const createdMess = await message
+        let message = await new Message(newMessage).save();
+
+        message = await message
             .populate('sender', 'name avatar')
             .populate({
                 path: 'chat',
-                populate: { path: 'users', select: 'name avatar email' }
+                populate: { path: 'users', select: 'avatar name email' }
             })
 
-        await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
+        await Chat.findByIdAndUpdate({ _id: chatId }, { latestMessage: message });
 
-        res.json(createdMess);
+        res.json(message);
     } catch (error) {
         res.status(400);
         throw new Error(error.message);

@@ -139,7 +139,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             socket.emit("typing", selectedChat._id);
         }
         let lastTypingTime = new Date().getTime();
-        const timerLength = 3000;
+        let timerLength = 3000;
         setTimeout(() => {
             let timeNow = new Date().getTime();
             let timeDiff = timeNow - lastTypingTime;
