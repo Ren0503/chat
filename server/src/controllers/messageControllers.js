@@ -33,7 +33,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     };
 
     try {
-        let message = await new Message(newMessage).save();
+        let message = await Message.create(newMessage);
 
         message = await message
             .populate('sender', 'name avatar')
