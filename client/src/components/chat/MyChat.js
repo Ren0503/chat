@@ -7,7 +7,8 @@ import { GroupChatModal } from 'components/core/modals';
 import { Button } from '@chakra-ui/button';
 import { AddIcon } from '@chakra-ui/icons';
 import LoadingSkeleton from 'components/shared/LoadSkeleton';
-import { getSender } from 'utils';
+import { getSender, getSenderFull } from 'utils';
+import { Avatar } from '@chakra-ui/avatar';
 
 const MyChat = ({ fetchAgain }) => {
     const [loggedUser, setLoggedUser] = useState();
@@ -99,24 +100,33 @@ const MyChat = ({ fetchAgain }) => {
                                 cursor="pointer"
                                 bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
                                 color={selectedChat === chat ? "white" : "black"}
+                                d="flex"
                                 px={3}
                                 py={2}
                                 borderRadius="lg"
                                 key={chat._id}
                             >
-                                <Text>
-                                    {!chat.isGroupChat
-                                        ? getSender(loggedUser, chat.users)
-                                        : chat.chatName}
-                                </Text>
-                                {chat.latestMessage && (
-                                    <Text fontSize="xs">
-                                        <b>{chat.latestMessage.sender.name} : </b>
-                                        {chat.latestMessage.content.length > 50
-                                            ? chat.latestMessage.content.substring(0, 51) + "..."
-                                            : chat.latestMessage.content}
+                                <Avatar
+                                    mr={2}
+                                    size="sm"
+                                    cursor="pointer"
+                                    name={getSenderFull(loggedUser, chat.users).name}
+                                    src={getSenderFull(loggedUser, chat.users).avatar}
+                                />
+                                <Box>
+                                    <Text>
+                                        {!chat.isGroupChat
+                                            ? getSender(loggedUser, chat.users)
+                                            : chat.chatName}
                                     </Text>
-                                )}
+                                    {chat.latestMessage && (
+                                        <Text fontSize="xs">
+                                            {chat.latestMessage.content.length > 50
+                                                ? chat.latestMessage.content.substring(0, 51) + "..."
+                                                : chat.latestMessage.content}
+                                        </Text>
+                                    )}
+                                </Box>
                             </Box>
                         ))}
                     </Stack>

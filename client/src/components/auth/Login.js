@@ -46,10 +46,6 @@ const Login = () => {
                 { email, password },
                 config
             );
-
-            console.log(email);
-            console.log(password);
-            console.log(data);
             
             toast({
                 title: "Login Successful",

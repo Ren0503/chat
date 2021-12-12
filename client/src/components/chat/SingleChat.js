@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { io } from 'socket.io-client';
 import { Box, Text } from '@chakra-ui/layout';
-import { IconButton } from '@chakra-ui/button';
+import { IconButton, Button } from '@chakra-ui/button';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { ProfileModal, UpdateGroupChatModal } from 'components/core/modals';
 import { Spinner } from '@chakra-ui/spinner';
@@ -12,6 +12,7 @@ import { Input } from '@chakra-ui/input';
 import { ChatState } from 'context/ChatProvider';
 import { getSender, getSenderFull } from 'utils';
 import Scrollable from './Scrollable';
+import Picker from "emoji-picker-react";
 
 let socket, selectedChatCompare;
 
@@ -22,6 +23,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [socketConnected, setSocketConnected] = useState(false);
     const [typing, setTyping] = useState(false);
     const [isTyping, setIsTyping] = useState(false)
+    const [show, setShow] = useState(false);
 
     const toast = useToast();
 
@@ -84,7 +86,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     },
                     config
                 );
-                console.log(data);
                 socket.emit("new message", data);
                 setMessages([...messages, data]);
             } catch (error) {
@@ -115,7 +116,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }, [selectedChat]);
 
     useEffect(() => {
-        console.log(notification)
         socket.on("message received", (newMessageReceived) => {
             if (
                 !selectedChatCompare || // if chat is not selected or doesn't match current chat
@@ -150,6 +150,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 setTyping(false);
             }
         }, timerLength);
+    };
+
+    const onEmojiClick = (event, emojiObject) => {
+        setNewMessage(newMessage + emojiObject.emoji);
+    };
+
+    const handleShow = (e) => {
+        if (show) setShow(false);
+        else setShow(true);
     };
 
     return (
@@ -228,13 +237,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             ) : (
                                 <></>
                             )}
-                            <Input
-                                variant="filled"
-                                bg="#E0E0E0"
-                                placeholder="Enter a message.."
-                                value={newMessage}
-                                onChange={typingHandler}
-                            />
+                            <Box d="flex">
+                                <Input
+                                    variant="filled"
+                                    bg="#E0E0E0"
+                                    placeholder="Enter a message.."
+                                    value={newMessage}
+                                    onChange={typingHandler}
+                                />
+                                <Button onClick={handleShow}>
+                                    Emoji
+                                </Button>
+                                {show ? <Picker onEmojiClick={onEmojiClick} /> : <></>}
+                            </Box>
                         </FormControl>
                     </Box>
                 </>
