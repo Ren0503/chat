@@ -33,14 +33,15 @@ const sendMessage = asyncHandler(async (req, res) => {
     };
 
     try {
-        let message = await Message.create(newMessage);
+        let message = await new Message(newMessage).save();
 
         message = await message
-            .populate('sender', 'name avatar')
+            .populate('sender', 'name avatar email')
             .populate({
                 path: 'chat',
                 populate: { path: 'users', select: 'avatar name email' }
             })
+            .execPopulate()
 
         await Chat.findByIdAndUpdate({ _id: chatId }, { latestMessage: message });
 

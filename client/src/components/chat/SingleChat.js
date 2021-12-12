@@ -84,6 +84,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     },
                     config
                 );
+                console.log(data);
                 socket.emit("new message", data);
                 setMessages([...messages, data]);
             } catch (error) {
@@ -114,6 +115,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }, [selectedChat]);
 
     useEffect(() => {
+        console.log(notification)
         socket.on("message received", (newMessageReceived) => {
             if (
                 !selectedChatCompare || // if chat is not selected or doesn't match current chat
