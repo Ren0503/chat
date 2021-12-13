@@ -25,11 +25,12 @@ import {
 } from '@chakra-ui/modal';
 import { Input } from '@chakra-ui/input';
 import { Spinner } from '@chakra-ui/spinner';
+import { getSender } from 'utils';
+import { useNavigate } from 'react-router-dom';
 import NotificationBadge, { Effect } from 'react-notification-badge';
 import LoadingSkeleton from 'components/shared/LoadSkeleton';
 import ListUser from 'components/shared/ListUser';
-import { getSender } from 'utils';
-import { useNavigate } from 'react-router-dom';
+import logo from 'assets/logo.png';
 
 const Sidebar = () => {
     const [search, setSearch] = useState('');
@@ -139,9 +140,7 @@ const Sidebar = () => {
                         </Text>
                     </Button>
                 </Tooltip>
-                <Text fontSize="2xl" fontFamily="Work sans">
-                    WebChat
-                </Text>
+                <img src={logo} alt="Logo" width="50" />
                 <div>
                     <Menu>
                         <MenuButton p={1}>

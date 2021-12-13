@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Box, Container, Text } from '@chakra-ui/layout';
+import { Box, Container } from '@chakra-ui/layout';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 import { Login, Signup } from 'components/auth';
 import { useNavigate } from 'react-router-dom';
+import logo from 'assets/logo.png';
 
 const AuthScreen = () => {
     const navigate = useNavigate();
@@ -25,9 +26,7 @@ const AuthScreen = () => {
                 borderRadius="lg"
                 borderWidth="1px"
             >
-                <Text>
-                    Rocket
-                </Text>
+                <img src={logo} alt="Logo" width="50" />
             </Box>
             <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
                 <Tabs isFitted variant="soft-rounded">

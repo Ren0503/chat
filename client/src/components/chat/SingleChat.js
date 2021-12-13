@@ -13,6 +13,7 @@ import { ChatState } from 'context/ChatProvider';
 import { getSender, getSenderFull } from 'utils';
 import Scrollable from './Scrollable';
 import Picker from "emoji-picker-react";
+import imgLoading from 'assets/typing.gif';
 
 let socket, selectedChatCompare;
 
@@ -232,7 +233,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                         >
                             {isTyping ? (
                                 <div>
-                                    Loading
+                                    <img src={imgLoading} alt="Typing" width="50" />
                                 </div>
                             ) : (
                                 <></>
@@ -248,7 +249,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 <Button onClick={handleShow}>
                                     Emoji
                                 </Button>
-                                {show ? <Picker onEmojiClick={onEmojiClick} /> : <></>}
+                                {show ?
+                                    <div style={{ position: 'absolute', right: '0', top: '-330px' }}>
+                                        <Picker onEmojiClick={onEmojiClick} />
+                                    </div>
+                                    : <></>}
                             </Box>
                         </FormControl>
                     </Box>
